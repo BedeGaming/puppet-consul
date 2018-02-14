@@ -46,6 +46,11 @@
 #   Value in seconds before the http endpoint considers a failing healthcheck
 #   to be "HARD" down.
 #
+# [*header*]
+#  Specifies a set of headers that should be set for HTTP checks. 
+#  Each header can have multiple values
+
+
 define consul::check(
   $ensure     = present,
   $http       = undef,
@@ -59,6 +64,7 @@ define consul::check(
   $timeout    = undef,
   $token      = undef,
   $ttl        = undef,
+  $header     = undef,
 ) {
   include consul
 
@@ -75,6 +81,7 @@ define consul::check(
     'notes'      => $notes,
     'token'      => $token,
     'status'     => $status,
+    'header'     => $header
   }
 
   $check_hash = {
